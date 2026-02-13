@@ -1,0 +1,27 @@
+servo_node:
+  ros__parameters:
+    moveit_servo:
+      # --- CAMBIO IMPORTANTE ---
+      move_group_name: fr3_arm  # Antes probablemente decía panda_arm o no estaba
+      # -------------------------
+      
+      cartesian_command_in_topic: delta_twist_cmds
+      joint_command_in_topic: delta_joint_cmds
+      status_topic: status
+      
+      robot_link_command_frame: fr3_link0
+      ee_frame_name: fr3_hand_tcp
+      
+      # Escalas para que no se mueva demasiado rápido al principio
+      linear_scale: 0.4
+      rotational_scale: 0.8
+      
+      publish_period: 0.01
+      incoming_command_timeout: 0.5
+      
+      command_out_type: trajectory_msgs/JointTrajectory
+      publish_joint_positions: true
+      publish_joint_velocities: false
+      publish_joint_accelerations: false
+      
+      is_primary_joint_state_publisher: true
