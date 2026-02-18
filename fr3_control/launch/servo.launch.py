@@ -33,7 +33,7 @@ def generate_launch_description():
     robot_description_semantic = {"robot_description_semantic": ParameterValue(robot_description_semantic_content, value_type=str)}
 
     # 2. Cargar YAMLs de Franka como diccionarios (esto evita el error de ros__parameters)
-    kinematics_yaml = load_yaml("franka_description", "robots/fr3/kinematics.yaml")
+    kinematics_yaml = load_yaml("fr3_control", "config/kinematics.yaml")
     joint_limits_yaml = load_yaml("franka_description", "robots/fr3/joint_limits.yaml")
 
     # 3. Cargar tu configuración de Servo (esta sí debería tener ros__parameters, pero la cargamos igual)
