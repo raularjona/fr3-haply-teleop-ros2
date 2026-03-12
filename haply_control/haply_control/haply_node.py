@@ -39,6 +39,9 @@ class HaplyRosNode(Node):
         self.current_force["x"] = float(msg.wrench.force.x)
         self.current_force["y"] = float(msg.wrench.force.y)
         self.current_force["z"] = float(msg.wrench.force.z)
+        self.get_logger().info(
+            f"Force recibida: x={self.current_force['x']:.2f}, y={self.current_force['y']:.2f}, z={self.current_force['z']:.2f}"
+        )
 
     def publish_pose(self, pos, orient):
 
@@ -68,7 +71,10 @@ async def haply_client(ros_node: HaplyRosNode):
         ros_node.get_logger().info("Conectado al Haply Inverse Service.")
 
         while rclpy.ok():
-
+            
+            # procesar callbacks ROS
+            rclpy.spin_once(ros_node, timeout_sec=0)
+            
             response = await ws.recv()
             data = orjson.loads(response)
 

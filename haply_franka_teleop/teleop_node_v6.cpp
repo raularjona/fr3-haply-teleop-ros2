@@ -36,9 +36,7 @@ public:
     joint_pub_ =
       this->create_publisher<sensor_msgs::msg::JointState>(
         "/joint_states",10);
-    // Debajo de joint_pub_
-    
-    ee_pose_pub_ = this->create_publisher<geometry_msgs::msg::PoseStamped>("/franka_ee_pose", 10);
+
     sub_ =
       create_subscription<geometry_msgs::msg::PoseStamped>(
         "/haply_pose",
@@ -64,11 +62,12 @@ private:
 
   void publishToRviz(const franka::RobotState& state){
 
-    // 1. Publicar los JointStates (lo que ya tenías)
     if(++rviz_counter_ >= 33){
 
       sensor_msgs::msg::JointState js_msg;
+
       js_msg.header.stamp = this->now();
+
       js_msg.name = {
         "fr3_joint1","fr3_joint2","fr3_joint3",
         "fr3_joint4","fr3_joint5","fr3_joint6","fr3_joint7"
@@ -78,22 +77,6 @@ private:
         js_msg.position.push_back(state.q[i]);
 
       joint_pub_->publish(js_msg);
-
-      // 2. AÑADE ESTO: Publicar la Pose del End Effector
-      geometry_msgs::msg::PoseStamped pose_msg;
-      pose_msg.header.stamp = this->now();
-      pose_msg.header.frame_id = "fr3_link0"; // El frame base del robot
-
-      // O_T_EE es la matriz de transformación homogénea (4x4) en un array de 16 elementos
-      // Los índices 12, 13 y 14 corresponden a la traslación X, Y, Z
-      pose_msg.pose.position.x = state.O_T_EE[12];
-      pose_msg.pose.position.y = state.O_T_EE[13];
-      pose_msg.pose.position.z = state.O_T_EE[14];
-
-      // La orientación se puede extraer de la matriz, pero para una esfera basta con esto
-      pose_msg.pose.orientation.w = 1.0; 
-
-      ee_pose_pub_->publish(pose_msg);
 
       rviz_counter_ = 0;
     }
@@ -344,7 +327,6 @@ private:
 
   rclcpp::Publisher<
     sensor_msgs::msg::JointState>::SharedPtr joint_pub_;
-  rclcpp::Publisher<geometry_msgs::msg::PoseStamped>::SharedPtr ee_pose_pub_;
 
   geometry_msgs::msg::Point haply_home_;
   geometry_msgs::msg::Point haply_current_;

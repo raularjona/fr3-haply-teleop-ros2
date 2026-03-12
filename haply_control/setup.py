@@ -21,6 +21,7 @@ setup(
     entry_points={
         'console_scripts': [
             'haply_node = haply_control.haply_node:main',
+	    'virtual_wall_node = haply_control.virtual_wall_node:main',
         ],
     },
 )
