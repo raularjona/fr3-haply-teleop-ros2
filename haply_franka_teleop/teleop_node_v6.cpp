@@ -36,7 +36,9 @@ public:
     joint_pub_ =
       this->create_publisher<sensor_msgs::msg::JointState>(
         "/joint_states",10);
-
+    // Debajo de joint_pub_
+    
+    ee_pose_pub_ = this->create_publisher<geometry_msgs::msg::PoseStamped>("/franka_ee_pose", 10);
     sub_ =
       create_subscription<geometry_msgs::msg::PoseStamped>(
         "/haply_pose",
@@ -327,7 +329,8 @@ private:
 
   rclcpp::Publisher<
     sensor_msgs::msg::JointState>::SharedPtr joint_pub_;
-
+  rclcpp::Publisher<geometry_msgs::msg::PoseStamped>::SharedPtr ee_pose_pub_;
+  
   geometry_msgs::msg::Point haply_home_;
   geometry_msgs::msg::Point haply_current_;
 
