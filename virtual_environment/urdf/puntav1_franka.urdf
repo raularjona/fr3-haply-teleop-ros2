@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<robot name="punta_franka_v1">
+
+  <link name="punta_v1_link">
+    <visual>
+      <origin xyz="0 0 -0.11" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://virtual_environment/meshes/punta_v1.stl" scale="1 1 1"/>
+      </geometry>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <joint name="fr3_to_punta_v1" type="fixed">
+    <parent link="fr3_link8"/>
+    <child link="punta_v1_link"/>
+    <origin xyz="0 0 0.11" rpy="0 0 0"/>
+  </joint>
+
+  <link name="punta_tcp"/>
+
+  <joint name="punta_to_tcp" type="fixed">
+    <parent link="punta_v1_link"/>
+    <child link="punta_tcp"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+</robot>

@@ -380,7 +380,7 @@ int main(int argc,char** argv){
 
   rclcpp::init(argc,argv);
 
-  if(argc!=2){
+  if(argc< 2){
 
     std::cerr
       <<"Uso: ros2 run haply_franka_teleop teleop_node <robot_ip>"

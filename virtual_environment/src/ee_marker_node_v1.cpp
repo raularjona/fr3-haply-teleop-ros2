@@ -23,12 +23,11 @@ public:
 
 private:
 
-  void poseCallback(const geometry_msgs::msg::PoseStamped::SharedPtr)
+  void poseCallback(const geometry_msgs::msg::PoseStamped::SharedPtr msg)
   {
     visualization_msgs::msg::Marker marker;
 
-    // 🔥 IMPORTANTE: usar el frame de la punta
-    marker.header.frame_id = "punta_v1_link";
+    marker.header.frame_id = "fr3_link0";
     marker.header.stamp = now();
 
     marker.ns = "ee";
@@ -37,22 +36,14 @@ private:
     marker.type = visualization_msgs::msg::Marker::SPHERE;
     marker.action = visualization_msgs::msg::Marker::ADD;
 
-    // 🔥 Pose identidad (centrado en la punta)
-    marker.pose.position.x = 0.0;
-    marker.pose.position.y = 0.0;
-    marker.pose.position.z = 0.0;
+    marker.pose = msg->pose;
 
-    marker.pose.orientation.x = 0.0;
-    marker.pose.orientation.y = 0.0;
-    marker.pose.orientation.z = 0.0;
-    marker.pose.orientation.w = 1.0;
+    marker.scale.x = 0.06;
+    marker.scale.y = 0.06;
+    marker.scale.z = 0.06;
 
-    marker.scale.x = 0.03;
-    marker.scale.y = 0.03;
-    marker.scale.z = 0.03;
-
-    marker.color.r = 1.0;
-    marker.color.g = 0.0;
+    marker.color.r = 0.0;
+    marker.color.g = 1.0;
     marker.color.b = 0.0;
     marker.color.a = 1.0;
 
