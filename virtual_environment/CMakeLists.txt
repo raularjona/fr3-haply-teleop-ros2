@@ -72,4 +72,22 @@ install(DIRECTORY
   DESTINATION share/${PROJECT_NAME}
 )
 
+########################################
+# Install EEffector config
+########################################
+
+install(DIRECTORY
+  meshes
+  urdf
+  DESTINATION share/${PROJECT_NAME}
+)
+
+########################################
+# Install launch config
+########################################
+
+install(
+  DIRECTORY launch
+  DESTINATION share/${PROJECT_NAME}
+)
 ament_package()
